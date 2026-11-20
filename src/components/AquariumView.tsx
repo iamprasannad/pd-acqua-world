@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 import { useAquariumStore } from '../store/aquariumStore';
 import { renderAquariumScene } from '../engine/canvasRenderer';
 import { FishInfoCard } from './FishInfoCard';
@@ -21,7 +22,7 @@ export const AquariumView: React.FC = () => {
     activePanel,
     isWatchMode,
     lowEffectsMode
-  } = useAquariumStore(state => ({
+  } = useAquariumStore(useShallow(state => ({
     currentTank: state.currentTank,
     fishList: state.currentTank.inhabitants,
     foodParticles: state.foodParticles,
@@ -34,7 +35,7 @@ export const AquariumView: React.FC = () => {
     activePanel: state.activePanel,
     isWatchMode: state.isWatchMode,
     lowEffectsMode: state.lowEffectsMode
-  }));
+  })));
 
   const [secondaryMarkError, setSecondaryMarkError] = useState(false);
 
